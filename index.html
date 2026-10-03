@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>David José de las Heras Martínez | Ciberseguridad</title>
+
+<meta name="description"
+content="Portfolio de David José de las Heras Martínez. Mi aprendizaje desde cero en ciberseguridad, laboratorios, apuntes y certificaciones.">
+
+<style>
+
+:root {
+    --bg: #05080c;
+    --card: rgba(13, 18, 24, 0.88);
+    --card2: rgba(20, 27, 35, 0.92);
+    --text: #f0f6fc;
+    --muted: #a8b3bd;
+    --border: rgba(255,255,255,.13);
+    --accent: #39d353;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                 Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+}
+
+/* =========================
+   MANDELBROT
+========================= */
+
+#mandelbrot {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -3;
+}
+
+.background-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background:
+        linear-gradient(
+            rgba(2,5,8,.66),
+            rgba(2,5,8,.91)
+        );
+}
+
+/* =========================
+   NAVEGACIÓN
+========================= */
+
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding: 11px;
+    background: rgba(3,7,10,.88);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+}
+
+nav a {
+    color: var(--text);
+    text-decoration: none;
+    padding: 8px 11px;
+    border-radius: 8px;
+    font-size: .92rem;
+}
+
+nav a:hover {
+    background: rgba(255,255,255,.09);
+}
+
+/* =========================
+   PORTADA
+========================= */
+
+.hero {
+    min-height: 88vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 70px 20px;
+}
+
+.hero-content {
+    max-width: 850px;
+}
+
+.tao {
+    width: 105px;
+    height: 105px;
+    margin: 0 auto 25px;
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 50% 25%,
+            #05080c 0 9%,
+            #f5f5f5 10% 24%,
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 50% 75%,
+            #f5f5f5 0 9%,
+            #05080c 10% 24%,
+            transparent 25%
+        ),
+        linear-gradient(
+            90deg,
+            #f5f5f5 0 50%,
+            #05080c 50%
+        );
+
+    border: 2px solid rgba(255,255,255,.75);
+    box-shadow: 0 0 35px rgba(255,255,255,.12);
+    animation: taoFloat 6s ease-in-out infinite;
+}
+
+@keyframes taoFloat {
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.hero h1 {
+    margin: 0;
+    font-size: clamp(2.1rem, 7vw, 4.2rem);
+    line-height: 1.08;
+}
+
+.hero h2 {
+    margin: 14px 0 25px;
+    border: 0;
+    color: var(--accent);
+    font-size: clamp(1rem, 3vw, 1.35rem);
+    font-weight: 500;
+}
+
+.quote {
+    max-width: 650px;
+    margin: 25px auto;
+    font-size: 1.25rem;
+    font-style: italic;
+}
+
+.intro {
+    max-width: 700px;
+    margin: auto;
+    color: var(--muted);
+}
+
+.hero-buttons {
+    margin-top: 30px;
+}
+
+/* =========================
+   BOTONES
+========================= */
+
+.button {
+    display: inline-block;
+    margin: 6px;
+    padding: 11px 17px;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 9px;
+    border: 1px solid rgba(255,255,255,.16);
+    background: rgba(35,134,54,.92);
+    transition: .2s;
+}
+
+.button:hover {
+    transform: translateY(-2px);
+    background: #2ea043;
+}
+
+.button.secondary {
+    background: rgba(255,255,255,.08);
+}
+
+/* =========================
+   CONTENIDO
+========================= */
+
+main {
+    width: min(100% - 32px, 1000px);
+    margin: auto;
+    padding-bottom: 80px;
+}
+
+section {
+    margin: 85px 0;
+    scroll-margin-top: 80px;
+}
+
+section > h2 {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+}
+
+.card {
+    padding: 25px;
+    margin: 17px 0;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--card);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.card h3 {
+    margin-top: 0;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(260px,1fr));
+    gap: 18px;
+}
+
+.tag {
+    display: inline-block;
+    margin: 4px 3px;
+    padding: 5px 10px;
+    font-size: .84rem;
+    color: #dce4eb;
+    background: rgba(255,255,255,.07);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+}
+
+/* =========================
+   PROGRESO
+========================= */
+
+.stats {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit,minmax(160px,1fr));
+    gap: 14px;
+    margin-top: 25px;
+}
+
+.stat {
+    text-align: center;
+    padding: 23px 12px;
+    border-radius: 15px;
+    background: var(--card2);
+    border: 1px solid var(--border);
+}
+
+.stat strong {
+    display: block;
+    font-size: 1.7rem;
+    color: var(--accent);
+}
+
+.stat span {
+    color: var(--muted);
+    font-size: .9rem;
+}
+
+/* =========================
+   RUTA CERTIFICACIONES
+========================= */
+
+.route {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 9px;
+    margin-top: 20px;
+}
+
+.cert {
+    padding: 9px 12px;
+    border-radius: 8px;
+    background: rgba(255,255,255,.07);
+    border: 1px solid var(--border);
+}
+
+.cert.current {
+    border-color: var(--accent);
+}
+
+.arrow {
+    color: var(--muted);
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    padding: 45px 20px;
+    text-align: center;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    background: rgba(0,0,0,.55);
+}
+
+/* =========================
+   MÓVIL
+========================= */
+
+@media (max-width: 600px) {
+
+    .hero {
+        min-height: 82vh;
+    }
+
+    .tao {
+        width: 85px;
+        height: 85px;
+    }
+
+    nav a {
+        font-size: .83rem;
+        padding: 7px 8px;
+    }
+
+    section {
+        margin: 65px 0;
+    }
+
+    .card {
+        padding: 20px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    .tao {
+        animation: none;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<canvas id="mandelbrot"></canvas>
+<div class="background-overlay"></div>
+
+
+<!-- =========================
+     MENÚ
+========================= -->
+
+<nav>
+
+<a href="#historia">Mi historia</a>
+<a href="#progreso">Progreso</a>
+<a href="#sistemas">Sistemas operativos</a>
+<a href="#labs">Labs</a>
+<a href="#apuntes">Apuntes</a>
+<a href="#certificados">Certificados</a>
+<a href="#contacto">Contacto</a>
+
+</nav>
+
+
+<!-- =========================
+     PORTADA
+========================= -->
+
+<header class="hero">
+
+<div class="hero-content">
+
+<div class="tao"
+     role="img"
+     aria-label="Símbolo del Tao">
+</div>
+
+<h1>
+David José<br>
+de las Heras Martínez
+</h1>
+
+<h2>
+Aprendiendo ciberseguridad desde cero
+</h2>
+
+<p class="quote">
+“Para mí la ciberseguridad es como un puzzle que estoy aprendiendo.”
+</p>
+
+<p class="intro">
+
+Este portfolio es mi forma de documentar el camino:
+lo que estudio, los laboratorios que consigo resolver,
+mis apuntes, mis certificaciones y todo lo que voy
+descubriendo mientras avanzo.
+
+</p>
+
+<div class="hero-buttons">
+
+<a class="button" href="#labs">
+Ver mis labs
+</a>
+
+<a class="button secondary" href="#historia">
+Conocer mi historia
+</a>
+
+</div>
+
+</div>
+
+</header>
+
+
+<main>
+
+
+<!-- =========================
+     MI HISTORIA
+========================= -->
+
+<section id="historia">
+
+<h2>👋 Mi historia</h2>
+
+<div class="card">
+
+<p>
+Mi curiosidad por la tecnología no empezó con la
+ciberseguridad.
+</p>
+
+<p>
+Desde pequeño desmontaba cosas simplemente para verlas
+por dentro y entender cómo funcionaban. Llegué a montar
+radios dentro de táperes y, con unos 15 o 16 años,
+monté mi primer PC.
+</p>
+
+<p>
+Mi primer ordenador fue un
+<strong>486 con Windows 3.1</strong>.
+Desde entonces siempre me ha gustado trastear con los
+ordenadores, investigar y descubrir qué hay detrás de
+lo que vemos en pantalla.
+</p>
+
+<p>
+Ahora esa curiosidad la estoy llevando a la
+<strong>ciberseguridad</strong>.
+</p>
+
+<p>
+Estoy empezando desde cero y todavía tengo muchísimo
+por descubrir. Actualmente <strong>OSINT</strong> es
+una de las áreas que más me está gustando, aunque
+quiero seguir conociendo otras ramas según avance mi
+formación.
+</p>
+
+<p>
+Lo que me atrae del hacking es precisamente
+<strong>el sentimiento de puzzle y el reto</strong>:
+encontrar una pista, comprenderla y conseguir que las
+piezas empiecen a encajar.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     PROGRESO
+========================= -->
+
+<section id="progreso">
+
+<h2>📈 Mi progreso</h2>
+
+<p>
+No quiero que este portfolio enseñe solamente el
+resultado final. También quiero que muestre el camino
+desde el principio.
+</p>
+
+<div class="stats">
+
+<div class="stat">
+
+<strong>38</strong>
+<span>días aprendiendo</span>
+
+</div>
+
+<div class="stat">
+
+<strong>44 h 25 min</strong>
+<span>de formación</span>
+
+</div>
+
+<div class="stat">
+
+<strong>Desde 0</strong>
+<span>construyendo conocimientos</span>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h3>🎯 Mi objetivo</h3>
+
+<p>
+Mi objetivo profesional es llegar a trabajar desde
+casa como <strong>hacker ético / profesional de
+ciberseguridad</strong>.
+</p>
+
+<p>
+La actitud la tengo. Ahora toca seguir estudiando,
+practicando, equivocándome, resolviendo problemas y
+formándome.
+</p>
+
+<p>
+Para mí aprender ciberseguridad tiene mucho de puzzle
+y de reto. Encontrar una pista, entender cómo funciona
+algo y conseguir avanzar es lo que me motiva a seguir
+aprendiendo.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     SISTEMAS OPERATIVOS
+========================= -->
+
+<section id="sistemas">
+
+<h2>💻 Sistemas operativos</h2>
+
+<p>
+Linux y macOS son los dos sistemas operativos que más
+me interesan actualmente y forman parte de mi
+aprendizaje.
+</p>
+
+
+<div class="grid">
+
+
+<div class="card">
+
+<h3>🐧 Linux / Debian</h3>
+
+<p>
+Tengo un cariño especial por Linux y, dentro de Linux,
+por <strong>Debian</strong>.
+</p>
+
+<p>
+Soy capaz de preparar un medio de instalación de
+Linux utilizando <strong>Rufus</strong>, realizar la
+instalación y hacer la configuración inicial de
+Debian.
+</p>
+
+<p>
+Me gusta tocar el sistema, configurarlo y aprender
+cómo funciona por dentro.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3> macOS</h3>
+
+<p>
+macOS es otro de los sistemas operativos que me gusta
+utilizar y forma parte de mi entorno habitual de
+aprendizaje.
+</p>
+
+<p>
+También utilizo la <strong>Terminal</strong> y
+<strong>iSH</strong> en el iPhone para seguir
+aprendiendo y practicando.
+</p>
+
+<p>
+Me gusta poder moverme entre distintos sistemas y
+descubrir las diferencias entre ellos.
+</p>
+
+</div>
+
+
+</div>
+
+
+<h3>Actualmente estoy aprendiendo y utilizando</h3>
+
+<p>
+
+<span class="tag">Debian</span>
+<span class="tag">Linux</span>
+<span class="tag">macOS</span>
+<span class="tag">Terminal</span>
+<span class="tag">iSH</span>
+<span class="tag">ExifTool</span>
+<span class="tag">Google</span>
+<span class="tag">Python</span>
+
+</p>
+
+</section>
+
+
+<!-- =========================
+     LABORATORIOS
+========================= -->
+
+<section id="labs">
+
+<h2>🧪 Laboratorios</h2>
+
+<p>
+Aquí documento los laboratorios que voy realizando.
+No quiero guardar solamente las respuestas: intento
+explicar cómo llegué hasta ellas y qué aprendí durante
+el proceso.
+</p>
+
+
+<div class="card">
+
+<h3>OhSINT — TryHackMe</h3>
+
+<p>
+OhSINT es uno de los primeros laboratorios que he
+documentado durante mi aprendizaje.
+</p>
+
+<p>
+Es un laboratorio centrado en OSINT en el que partí
+de una imagen y fui siguiendo diferentes pistas
+utilizando información disponible públicamente.
+</p>
+
+<p>
+Durante el laboratorio trabajé con metadatos,
+ExifTool, búsquedas en Internet y WiGLE, entre otras
+técnicas de investigación.
+</p>
+
+<span class="tag">OSINT</span>
+<span class="tag">ExifTool</span>
+<span class="tag">Metadatos</span>
+<span class="tag">WiGLE</span>
+
+<br><br>
+
+<a class="button" href="OhSINT.md">
+Ver cómo resolví OhSINT
+</a>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     APUNTES
+========================= -->
+
+<section id="apuntes">
+
+<h2>📚 Mis apuntes</h2>
+
+<div class="card">
+
+<p>
+Estos son los apuntes que voy creando mientras estudio
+ciberseguridad.
+</p>
+
+<p>
+Escribirlos me ayuda a ordenar lo que estoy
+aprendiendo y a poder consultar posteriormente los
+conceptos que he estudiado.
+</p>
+
+<p>
+Al publicarlos también quiero que puedan resultar
+útiles a otras personas que estén siguiendo un camino
+parecido.
+</p>
+
+<a class="button" href="Apuntes/">
+Ver mis apuntes
+</a>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     CERTIFICACIONES
+========================= -->
+
+<section id="certificados">
+
+<h2>🏆 Mi ruta de certificaciones</h2>
+
+<p>
+Actualmente estoy siguiendo una ruta de formación
+progresiva.
+</p>
+
+<p>
+No quiero limitarme a conseguir certificados.
+Mi objetivo es acompañar la formación con práctica,
+laboratorios, apuntes y proyectos.
+</p>
+
+
+<div class="route">
+
+<div class="cert current">
+
+<strong>CNPen</strong><br>
+<small>Estudiando actualmente</small>
+
+</div>
+
+<span class="arrow">→</span>
+
+<div class="cert">
+ISC2 CC
+</div>
+
+<span class="arrow">→</span>
+
+<div class="cert">
+eJPT
+</div>
+
+<span class="arrow">→</span>
+
+<div class="cert">
+eCPPT
+</div>
+
+<span class="arrow">→</span>
+
+<div class="cert">
+CRTP
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h3>📜 Certificados obtenidos</h3>
+
+<p>
+Aquí iré añadiendo los certificados que vaya
+consiguiendo durante mi formación y, cuando sea
+posible, sus credenciales de verificación.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     POR QUÉ ESTE PORTFOLIO
+========================= -->
+
+<section id="portfolio">
+
+<h2>🌐 ¿Por qué publico todo esto?</h2>
+
+<div class="card">
+
+<p>
+Quiero que otros hackers y personas que estén
+aprendiendo ciberseguridad puedan ver lo que hago,
+compartir conocimientos y charlar conmigo sobre ello.
+</p>
+
+<p>
+También quiero que este portfolio sirva para que
+empresas puedan ver mi evolución, los laboratorios que
+he realizado, lo que estoy estudiando y lo que voy
+aprendiendo de cara a futuras oportunidades
+profesionales.
+</p>
+
+<p>
+Este portfolio no pretende enseñar que ya lo sé todo.
+Pretende enseñar <strong>cómo estoy aprendiendo</strong>.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     CONTACTO
+========================= -->
+
+<section id="contacto">
+
+<h2>📬 Contacto</h2>
+
+<div class="card">
+
+<p>
+Puedes seguir mi progreso y consultar los archivos
+originales de este portfolio en GitHub.
+</p>
+
+<a class="button"
+href="https://github.com/30-12-87"
+target="_blank"
+rel="noopener noreferrer">
+GitHub
+</a>
+
+<!--
+Cuando tengamos la URL de LinkedIn,
+añadiremos aquí el botón.
+-->
+
+</div>
+
+</section>
+
+
+</main>
+
+
+<!-- =========================
+     PIE
+========================= -->
+
+<footer>
+
+<div class="tao"
+     style="width:50px;height:50px;">
+</div>
+
+<p>
+<strong>David José de las Heras Martínez</strong>
+</p>
+
+<p>
+Aprendiendo, practicando y encajando las piezas.
+</p>
+
+</footer>
+
+
+<!-- =========================
+     MANDELBROT ANIMADO
+========================= -->
+
+<script>
+
+const canvas =
+    document.getElementById("mandelbrot");
+
+const ctx =
+    canvas.getContext("2d");
+
+let width;
+let height;
+let frame = 0;
+
+const reducedMotion =
+    window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+
+/* Ajustamos la resolución.
+   Se utiliza una resolución inferior a la pantalla
+   para reducir el consumo de CPU, especialmente
+   en iPhone. */
+
+function resizeCanvas() {
+
+    const scale = 0.35;
+
+    width = Math.max(
+        250,
+        Math.floor(
+            window.innerWidth * scale
+        )
+    );
+
+    height = Math.max(
+        250,
+        Math.floor(
+            window.innerHeight * scale
+        )
+    );
+
+    canvas.width = width;
+    canvas.height = height;
+}
+
+
+function drawMandelbrot() {
+
+    const image =
+        ctx.createImageData(
+            width,
+            height
+        );
+
+    const data =
+        image.data;
+
+    const time =
+        reducedMotion
+        ? 0
+        : frame * 0.0025;
+
+    const zoom =
+        1.15 +
+        Math.sin(time) * 0.22;
+
+    const centerX =
+        -0.55 +
+        Math.sin(
+            time * 0.7
+        ) * 0.08;
+
+    const centerY =
+        Math.cos(
+            time * 0.5
+        ) * 0.05;
+
+    const maxIterations = 45;
+
+    let p = 0;
+
+
+    for (
+        let py = 0;
+        py < height;
+        py++
+    ) {
+
+        for (
+            let px = 0;
+            px < width;
+            px++
+        ) {
+
+            const x0 =
+                centerX +
+                (
+                    px / width - 0.5
+                ) *
+                (
+                    3.2 / zoom
+                );
+
+            const y0 =
+                centerY +
+                (
+                    py / height - 0.5
+                ) *
+                (
+                    2.2 / zoom
+                );
+
+            let x = 0;
+            let y = 0;
+            let iteration = 0;
+
+
+            while (
+                x * x + y * y <= 4 &&
+                iteration <
+                maxIterations
+            ) {
+
+                const xtemp =
+                    x * x -
+                    y * y +
+                    x0;
+
+                y =
+                    2 * x * y +
+                    y0;
+
+                x = xtemp;
+
+                iteration++;
+            }
+
+
+            if (
+                iteration ===
+                maxIterations
+            ) {
+
+                data[p] = 1;
+                data[p + 1] = 5;
+                data[p + 2] = 8;
+
+            } else {
+
+                const t =
+                    iteration /
+                    maxIterations;
+
+                data[p] =
+                    Math.floor(
+                        15 + 25 * t
+                    );
+
+                data[p + 1] =
+                    Math.floor(
+                        45 + 150 * t
+                    );
+
+                data[p + 2] =
+                    Math.floor(
+                        55 + 110 * t
+                    );
+            }
+
+            data[p + 3] = 255;
+
+            p += 4;
+        }
+    }
+
+    ctx.putImageData(
+        image,
+        0,
+        0
+    );
+}
+
+
+function animate() {
+
+    drawMandelbrot();
+
+    if (!reducedMotion) {
+
+        frame++;
+
+        setTimeout(
+            () => {
+                requestAnimationFrame(
+                    animate
+                );
+            },
+            90
+        );
+    }
+}
+
+
+resizeCanvas();
+animate();
+
+
+let resizeTimer;
+
+window.addEventListener(
+    "resize",
+    () => {
+
+        clearTimeout(
+            resizeTimer
+        );
+
+        resizeTimer =
+            setTimeout(
+                () => {
+
+                    resizeCanvas();
+
+                    if (
+                        reducedMotion
+                    ) {
+                        drawMandelbrot();
+                    }
+
+                },
+                250
+            );
+    }
+);
+
+</script>
+
+</body>
+</html>
